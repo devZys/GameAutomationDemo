@@ -1,0 +1,88 @@
+
+========================2018-03-04 15:40:06===============================
+
+======================================================================================
+Message:发生一个或多个错误。
+Source:mscorlib
+StackTrace:   在 System.Threading.Tasks.Task.WaitAll(Task[] tasks, Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   在 System.Threading.Tasks.Task.WaitAll(Task[] tasks, Int32 millisecondsTimeout)
+   在 System.Threading.Tasks.Task.WaitAll(Task[] tasks)
+   在 GameAutomationDemo.Form1.startbtn_Click(Object sender, EventArgs e) 位置 D:\gitPersonal\GameAutomationDemo\src\GameAutomationDemo\Form1.cs:行号 73
+========================2018-03-04 15:41:47===============================
+
+======================================================================================
+Message:发生一个或多个错误。
+Source:mscorlib
+StackTrace:   在 System.Threading.Tasks.Task.WaitAll(Task[] tasks, Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   在 System.Threading.Tasks.Task.WaitAll(Task[] tasks, Int32 millisecondsTimeout)
+   在 System.Threading.Tasks.Task.WaitAll(Task[] tasks)
+   在 GameAutomationDemo.Form1.startbtn_Click(Object sender, EventArgs e) 位置 D:\gitPersonal\GameAutomationDemo\src\GameAutomationDemo\Form1.cs:行号 73
+========================2018-03-04 15:42:07===============================
+
+======================================================================================
+Message:发生一个或多个错误。
+Source:mscorlib
+StackTrace:   在 System.Threading.Tasks.Task.WaitAll(Task[] tasks, Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   在 System.Threading.Tasks.Task.WaitAll(Task[] tasks, Int32 millisecondsTimeout)
+   在 System.Threading.Tasks.Task.WaitAll(Task[] tasks)
+   在 GameAutomationDemo.Form1.startbtn_Click(Object sender, EventArgs e) 位置 D:\gitPersonal\GameAutomationDemo\src\GameAutomationDemo\Form1.cs:行号 73
+========================2018-03-04 15:44:22===============================
+
+======================================================================================
+Message:发生一个或多个错误。
+Source:mscorlib
+StackTrace:   在 System.Threading.Tasks.Task.WaitAll(Task[] tasks, Int32 millisecondsTimeout, CancellationToken cancellationToken)
+   在 System.Threading.Tasks.Task.WaitAll(Task[] tasks, Int32 millisecondsTimeout)
+   在 System.Threading.Tasks.Task.WaitAll(Task[] tasks)
+   在 GameAutomationDemo.Form1.startbtn_Click(Object sender, EventArgs e) 位置 D:\gitPersonal\GameAutomationDemo\src\GameAutomationDemo\Form1.cs:行号 73
+========================2018-03-04 15:52:50===============================
+
+======================================================================================
+Message:错误：大漠绑定雷电模拟器窗口失败
+Source:GameAutomationDemo
+StackTrace:   在 GameAutomationDemo.Form1.StartPlayersAsync() 位置 D:\gitPersonal\GameAutomationDemo\src\GameAutomationDemo\Form1.cs:行号 118
+   在 GameAutomationDemo.Form1.startbtn_Click(Object sender, EventArgs e) 位置 D:\gitPersonal\GameAutomationDemo\src\GameAutomationDemo\Form1.cs:行号 74
+========================2018-03-04 16:51:12===============================
+
+======================================================================================
+Message:错误：绑定dnmultiplayer窗口失败，dnmultiplayer启动太过缓慢。
+Source:GameAutomationDemo
+StackTrace:   在 Dm.DmsoftExtensions.BindWindowByCustom(dmsoft dm, Process process) 位置 D:\gitPersonal\GameAutomationDemo\src\GameAutomationDemo\Extensions\DmsoftExtensions.cs:行号 32
+   在 GameAutomationDemo.Form1.StartPlayers() 位置 D:\gitPersonal\GameAutomationDemo\src\GameAutomationDemo\Form1.cs:行号 103
+   在 GameAutomationDemo.Form1.startbtn_Click(Object sender, EventArgs e) 位置 D:\gitPersonal\GameAutomationDemo\src\GameAutomationDemo\Form1.cs:行号 76
+========================2018-03-04 16:51:35===============================
+
+======================================================================================
+Message:错误：绑定dnmultiplayer窗口失败，dnmultiplayer启动太过缓慢。
+Source:GameAutomationDemo
+StackTrace:   在 Dm.DmsoftExtensions.BindWindowByCustom(dmsoft dm, Process process) 位置 D:\gitPersonal\GameAutomationDemo\src\GameAutomationDemo\Extensions\DmsoftExtensions.cs:行号 32
+   在 GameAutomationDemo.Form1.StartPlayers() 位置 D:\gitPersonal\GameAutomationDemo\src\GameAutomationDemo\Form1.cs:行号 103
+   在 GameAutomationDemo.Form1.startbtn_Click(Object sender, EventArgs e) 位置 D:\gitPersonal\GameAutomationDemo\src\GameAutomationDemo\Form1.cs:行号 76
+========================2018-03-04 16:54:41===============================
+
+======================================================================================
+Message:错误：绑定dnmultiplayer窗口失败，dnmultiplayer启动太过缓慢。
+Source:GameAutomationDemo
+StackTrace:   在 Dm.DmsoftExtensions.BindWindowByCustom(dmsoft dm, Process process) 位置 D:\gitPersonal\GameAutomationDemo\src\GameAutomationDemo\Extensions\DmsoftExtensions.cs:行号 32
+   在 GameAutomationDemo.Form1.StartPlayers() 位置 D:\gitPersonal\GameAutomationDemo\src\GameAutomationDemo\Form1.cs:行号 103
+   在 GameAutomationDemo.Form1.startbtn_Click(Object sender, EventArgs e) 位置 D:\gitPersonal\GameAutomationDemo\src\GameAutomationDemo\Form1.cs:行号 76
+========================2018-03-04 17:44:48===============================
+
+======================================================================================
+Message:索引超出了数组界限。
+Source:GameAutomationDemo
+StackTrace:   在 GameAutomationDemo.Form1.startbtn_Click(Object sender, EventArgs e) 位置 D:\gitPersonal\GameAutomationDemo\src\GameAutomationDemo\Form1.cs:行号 82
+========================2018-03-04 17:46:09===============================
+
+======================================================================================
+Message:错误：未成功启动雷电模拟器
+Source:GameAutomationDemo
+StackTrace:   在 GameAutomationDemo.Form1.StartPlayers() 位置 D:\gitPersonal\GameAutomationDemo\src\GameAutomationDemo\Form1.cs:行号 157
+   在 GameAutomationDemo.Form1.startbtn_Click(Object sender, EventArgs e) 位置 D:\gitPersonal\GameAutomationDemo\src\GameAutomationDemo\Form1.cs:行号 80
+========================2018-03-04 17:46:37===============================
+
+======================================================================================
+Message:错误：未成功启动雷电模拟器
+Source:GameAutomationDemo
+StackTrace:   在 GameAutomationDemo.Form1.StartPlayers() 位置 D:\gitPersonal\GameAutomationDemo\src\GameAutomationDemo\Form1.cs:行号 157
+   在 GameAutomationDemo.Form1.startbtn_Click(Object sender, EventArgs e) 位置 D:\gitPersonal\GameAutomationDemo\src\GameAutomationDemo\Form1.cs:行号 80
