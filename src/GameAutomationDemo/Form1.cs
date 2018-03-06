@@ -60,8 +60,11 @@ namespace GameAutomationDemo
         //[DllImport("KERNEL32.DLL ")]
         //public static extern int Process32Next(IntPtr handle, ref ProcessEntry32 pe);
 
-        [DllImport("user32.dll")]
-        private static extern int GetWindowRect(IntPtr hwnd, out Rect lpRect);
+        //[DllImport("DmReg.dll")]
+        //public static extern long SetDllPathW(string path, long mode);
+
+        //[DllImport("DmReg.dll")]
+        //public static extern long SetDllPathA(string path, long mode);
 
         #endregion
 
@@ -71,49 +74,31 @@ namespace GameAutomationDemo
 
         private static dmsoft _dmMain;
 
+        private static List<Thread> _threads = new List<Thread>();
+
         private void startbtn_Click(object sender, EventArgs e)
         {
             try
             {
                 ExitAllPlayer();
+
                 Task.WaitAll(Task.Delay(TimeSpan.FromSeconds(1)));
-                var processes = StartPlayers();
-                Task.WaitAll(Task.Delay(TimeSpan.FromSeconds(2)));
-                var process = processes[0];
-                GetWindowRect(process.MainWindowHandle, out var rect);
-                var x = 0;
-                var y = 0;
-                for (var i = 0; i < 100; i++)
+                var processes = StartPlayersByConsole();
+                var l = processes.Length;
+                for (var i = 0; i < l; i++)
                 {
-                    var dm = new dmsoft();
-                    var hwnd = dm.FindWindow(null, process.MainWindowTitle);
-                    dm.BindWindow(hwnd, "dx2", "windows", "windows", 0);
-                    //var p = _dmMain.FindPic(0, 0, 1000,1000, AppHelper.MapPath("/resources/pics/playerstart.bmp"), "000000", 1.0, 0, out var intX, out var intY);
-                    var p = dm.FindPic(0, 0, 1000, 1000, AppHelper.MapPath($"/resources/pics/test.bmp"), "202020|202020", 1.0, 0, out var intX, out var intY);
-                    x = (int)intX;
-                    y = (int)intY;
-                    if (x > 0 && y > 0) 
+                    var process = processes[i];
+                    var index = i;
+                    var thread = new Thread(() =>
                     {
-                        
-                        break;
-                    }
-                    else
-                        Task.WaitAll(Task.Delay(TimeSpan.FromSeconds(1)));
+                        var opera = new GameOperator(process, index);
+                    });
+
+                    thread.Start();
+                    _threads.Add(thread);
                 }
 
 
-                //var game = new GameOperation(processes[0], "test");
-
-                return;
-                //foreach (var process in processes)
-                //{
-                //    var thread = new Thread(() => {
-                //        //var game = new GameOperation(process, "test");
-                //    });
-
-                //    thread.IsBackground = false;
-                //    thread.Start();
-                //}
             }
             catch (Exception ex)
             {
@@ -123,15 +108,46 @@ namespace GameAutomationDemo
             }
         }
 
+        private Process[] StartPlayersByConsole()
+        {
+            var path = GetDnmultiplayerPath();
+            var console = $"{Path.Combine(Directory.GetParent(AppSettings.Player.Path).FullName, $"ldconsole.exe")}";
+            var strOutput = AppHelper.ExecuteWindowsCommond($"{console} list{Environment.NewLine}");
+            var arr = strOutput.Split(Environment.NewLine.ToArray()).Where(x => !string.IsNullOrWhiteSpace(x)).ToList();
+            for (var i = 0; i < arr.Count; i++)
+            {
+                AppHelper.ExecuteWindowsCommond($"{console} modify --index {i} --resolution 800,600,160");
+                AppHelper.ExecuteWindowsCommond($"{console} launch --index {i}");
+                Task.WaitAll(Task.Delay(TimeSpan.FromSeconds(AppSettings.Player.StartInterval)));
+            }
+
+            var processes = Process.GetProcesses().Where(x => x.ProcessName == "dnplayer").ToArray();
+            for (var i = 0; i < 30; i++)
+            {
+                if (processes.Length == arr.Count)
+                    break;
+                else
+                {
+                    AppHelper.WaitSeconds(1);
+                    processes = Process.GetProcesses().Where(x => x.ProcessName == "dnplayer").ToArray();
+                }
+            }
+
+            if (processes.Length < arr.Count)
+                throw new Exception($"模拟器全部启动太过缓慢，已等待超过30秒");
+
+            return processes;
+        }
+
         private Process[] StartPlayers()
         {
             var list = new List<Process>();
             _dmMain = new dmsoft();
             //var x = dmMain.Reg("111", "3.1254");
-            var playerProcess = StartDnmultiplayerProcess();
+            var mailProcess = StartDnmultiplayerProcess();
             //var hProcess = (IntPtr)OpenProcess(PROCESS_ALL_ACCESS, false, playerProcess.Id);
-            var x111 = playerProcess.MainWindowHandle.ToInt32();
-            var bind = _dmMain.BindWindowByCustom(playerProcess);
+            var x111 = mailProcess.MainWindowHandle.ToInt32();
+            var bind = _dmMain.BindWindowByCustom(mailProcess);
             if (bind == 0)
                 throw new Exception("错误：大漠绑定雷电多开器窗口失败");
 
@@ -192,6 +208,7 @@ namespace GameAutomationDemo
                 var path = GetDnmultiplayerPath();
                 if (string.IsNullOrWhiteSpace(path))
                     MessageBox.Show("请先安装雷电多开器，并发送到桌面快捷方式");
+
                 process = Process.Start(path);
             }
 
@@ -243,8 +260,10 @@ namespace GameAutomationDemo
                 StreamReader myStreamReader = myProcess.StandardOutput;
                 rInfo = myStreamReader.ReadToEnd();
                 myProcess.Close();
-                rInfo = strCmd + "\r\n" + rInfo;
-                // return rInfo;  
+
+                AppHelper.ExecuteWindowsCommond($"regsvr32 {AppHelper.MapPath("/refs/DmReg.dll.dll")} /s");
+                //SetDllPathW(AppHelper.MapPath("/refs/dm.dll"), 0);
+
                 return true;
             }
             catch (Exception ex)
@@ -286,25 +305,18 @@ namespace GameAutomationDemo
 
         private void ExitAllPlayer()
         {
+            var tl = _threads.Count;
+            for (var i = 0; i < tl; i++)
+            {
+                _threads[0].Abort();
+                _threads.RemoveAt(0);
+            }
+
             var pros = Process.GetProcesses().Where(x => x.ProcessName == "dnplayer" || x.ProcessName == "dnmultiplayer").ToList();
-            foreach(var pro in pros)
+            foreach (var pro in pros)
             {
                 pro.Kill();
             }
-            //KillTask("dnplayer.exe");
-            //KillTask("dnmultiplayer.exe");
-        }
-
-        private void KillTask(string name)
-        {
-            Process myProcess = new Process();
-            ProcessStartInfo myProcessStartInfo = new ProcessStartInfo("cmd.exe");
-            myProcessStartInfo.UseShellExecute = false;
-            myProcessStartInfo.CreateNoWindow = true;
-            myProcessStartInfo.RedirectStandardOutput = true;
-            myProcess.StartInfo = myProcessStartInfo;
-            myProcessStartInfo.Arguments = $"/c taskkill /im {name} /f";
-            myProcess.Start();
         }
     }
 }

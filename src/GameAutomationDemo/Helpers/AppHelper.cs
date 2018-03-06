@@ -14,7 +14,7 @@ namespace GameAutomationDemo.Helpers
 
         static AppHelper()
         {
-            if(_ini==null)
+            if (_ini == null)
                 _ini = new INIClass(MapPath("/appsettings.ini"));
         }
 
@@ -34,7 +34,7 @@ namespace GameAutomationDemo.Helpers
         }
 
         public static string GetAppSetting(string section, string key)
-        {            
+        {
             return _ini.IniReadValue(section, key);
         }
 
@@ -43,24 +43,37 @@ namespace GameAutomationDemo.Helpers
             _ini.IniWriteValue(section, key, val);
         }
 
-        public static int GetProcessHwnd(Process process)
+        public static string ExecuteWindowsCommond(string commond)
         {
-            var hw = process.MainWindowHandle.ToInt32();
-            if (hw <= 0)
-            {
-                for (int i = 0; i < 20; i++)
-                {
-                    hw = process.MainWindowHandle.ToInt32();
-                    if (hw <= 0)
-                        Task.WaitAll(Task.Delay(TimeSpan.FromMilliseconds(500)));
-                    else
-                        break;
-                }
-            }
-            if (hw <= 0)
-                throw new Exception($"错误：绑定{process.ProcessName}窗口失败，{process.ProcessName}启动太过缓慢。");
+            var result = string.Empty;
+            Process myProcess = new Process();
+            ProcessStartInfo myProcessStartInfo = new ProcessStartInfo("cmd.exe");
+            myProcessStartInfo.UseShellExecute = false;
+            myProcessStartInfo.CreateNoWindow = true;
+            myProcessStartInfo.RedirectStandardError = true;
+            myProcessStartInfo.RedirectStandardInput = true;
+            myProcessStartInfo.RedirectStandardOutput = true;
+            myProcess.StartInfo = myProcessStartInfo;
+            myProcessStartInfo.Arguments = $"/c {commond}";
+            myProcess.Start();
 
-            return hw;
+            result = myProcess.StandardOutput.ReadToEnd();
+
+            myProcess.StandardInput.WriteLine("exit");
+            myProcess.WaitForExit();
+            myProcess.Close();
+
+            return result;
+        }
+
+        public static void WaitSeconds(int seconds)
+        {
+            Task.WaitAll(Task.Delay(TimeSpan.FromSeconds(seconds)));
+        }
+        
+        public static void WaitMillSeconds(int total)
+        {
+            Task.WaitAll(Task.Delay(TimeSpan.FromMilliseconds(total)));
         }
     }
 }

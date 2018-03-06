@@ -1,4 +1,5 @@
-﻿using GameAutomationDemo.Helpers;
+﻿using Dm;
+using GameAutomationDemo.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -6,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Dm
+namespace GameAutomationDemo
 {
     public static class DmsoftExtensions
     {
@@ -17,7 +18,7 @@ namespace Dm
 
         public static int BindWindowByCustom(this dmsoft dm, Process process)
         {
-            return dm.BindWindowByCustom(AppHelper.GetProcessHwnd(process));
+            return dm.BindWindowByCustom(process.GetMainWindowHwnd());
         }
     }
 }

@@ -1,0 +1,19 @@
+
+========================2018-03-06 21:50:12===============================
+
+======================================================================================
+Message:StandardIn 尚未重定向。
+Source:System
+StackTrace:   在 System.Diagnostics.Process.get_StandardInput()
+   在 GameAutomationDemo.Helpers.AppHelper.StartCmdProcess() 位置 D:\gitPersonal\GameAutomationDemo\src\GameAutomationDemo\Helpers\AppHelper.cs:行号 72
+   在 GameAutomationDemo.Form1.StartPlayersByConsole() 位置 D:\gitPersonal\GameAutomationDemo\src\GameAutomationDemo\Form1.cs:行号 128
+   在 GameAutomationDemo.Form1.startbtn_Click(Object sender, EventArgs e) 位置 D:\gitPersonal\GameAutomationDemo\src\GameAutomationDemo\Form1.cs:行号 77
+========================2018-03-06 22:07:03===============================
+
+======================================================================================
+Message:StandardIn 尚未重定向。
+Source:System
+StackTrace:   在 System.Diagnostics.Process.get_StandardInput()
+   在 GameAutomationDemo.Helpers.AppHelper.ExecuteWindowsCommond(String commond) 位置 D:\gitPersonal\GameAutomationDemo\src\GameAutomationDemo\Helpers\AppHelper.cs:行号 60
+   在 GameAutomationDemo.Form1.StartPlayersByConsole() 位置 D:\gitPersonal\GameAutomationDemo\src\GameAutomationDemo\Form1.cs:行号 128
+   在 GameAutomationDemo.Form1.startbtn_Click(Object sender, EventArgs e) 位置 D:\gitPersonal\GameAutomationDemo\src\GameAutomationDemo\Form1.cs:行号 77

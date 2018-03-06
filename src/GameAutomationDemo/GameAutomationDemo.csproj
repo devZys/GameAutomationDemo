@@ -50,8 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Extensions\DmsoftExtensions.cs" />
+    <Compile Include="Extensions\ProcessExtensions.cs" />
     <Compile Include="Rect.cs" />
-    <Compile Include="Services\GameOperation.cs" />
+    <Compile Include="Services\GameOperator.cs" />
     <Compile Include="Helpers\AppHelper.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

@@ -26,7 +26,9 @@ namespace GameAutomationDemo.Helpers
             {
                 get
                 {
-                    return int.Parse(AppHelper.GetAppSetting("player", "startinterval"));
+                    int.TryParse(AppHelper.GetAppSetting("player", "startinterval"),out var x);
+                    x = x <= 0 ? 1 : x;                        
+                    return x;
                 }
                 set
                 {
